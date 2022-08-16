@@ -1,6 +1,6 @@
 FROM php:7.4-apache
 
-MAINTAINER Thierry NANCY <rascar.quapac@gmail.com>
+MAINTAINER Alexandre Gain <alexandre.gain@edumotiv.com>
 
 ENV PHP_INI_DATE_TIMEZONE 'UTC'
 ENV PHP_INI_MEMORY_LIMIT 256M
@@ -28,10 +28,12 @@ RUN apt-get update -y \
     && docker-php-ext-install bcmath gmp mbstring gettext zip gd xml \
     && mv ${PHP_INI_DIR}/php.ini-production ${PHP_INI_DIR}/php.ini
 
-ENV NOA_VERSION 7410
+ENV NOA_VERSION 9025
 
 # Get NOALYSS
-ADD https://github.com/Rascarquapac/docker-noalyss/raw/main/noalyss-${NOA_VERSION}.tar.gz  /tmp/noalyss.tar.gz
+
+ADD https://download.noalyss.eu/noalyss-package/version-90/noalyss-${NOA_VERSION}.tar.gz
+# ADD https://github.com/Rascarquapac/docker-noalyss/raw/main/noalyss-${NOA_VERSION}.tar.gz  /tmp/noalyss.tar.gz
 RUN tar -xzf /tmp/noalyss.tar.gz -C /tmp/ \
      && cd  /var/www/html \
      && cp -rvp /tmp/noalyss/ /var/www/html/ \
